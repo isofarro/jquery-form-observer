@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB" lang="en-GB">
+<head>
+	<title>Example form</title>
+	<link rel="stylesheet" type="text/css" href="form-style.css" />
+</head>
+<body>
+
+	<form class="example" action="example-form.html" method="post">
+		<fieldset id="fs_account_details">
+			<legend>Account</legend>
+			<div class="highlight">
+				<label class="error" for="email">This email address is already signed up as a member</label>
+				<label for="email"><span class="required">*</span> Email Address</label>
+				<input type="email" name="email" id="email" value="customer@example.com" />
+			</div>
+			<div>
+				<label for="password"><span class="required">*</span> Password</label>
+				<input type="password" name="password" id="password" value="" />
+			</div>
+			<div>
+				<label for="confirm_password"><span class="required">*</span> Confirm Password</label>
+				<input type="password" name="confirm_password" id="confirm_password" value="" />
+			</div>
+		</fieldset>
+		
+		<fieldset class="group">
+			<legend>Visiting the cinema</legend>
+			<p>How often do you go to see a movie in the cinema?</p>
+			<div>
+				<input type="radio" name="cinema" value="weeklyplus" id="cinema_1"><label for="cinema_1">More than once a week</label>
+			</div>
+			<div>
+				<input type="radio" name="cinema" value="weekly" id="cinema_2"><label for="cinema_2">Once a week</label>
+			</div>
+			<div>
+				<input type="radio" name="cinema" value="monthlyplus" id="cinema_3"><label for="cinema_3">Few times a month</label>
+			</div>
+			<div>
+				<input type="radio" name="cinema" value="monthly" id="cinema_4"><label for="cinema_4">Monthly</label>
+			</div>
+			<div>
+				<input type="radio" name="cinema" value="blockbuster" id="cinema_5"><label for="cinema_5">Only when there's a great movie showing</label>
+			</div>
+			<div>
+				<input type="radio" name="cinema" value="rarely" id="cinema_6"><label for="cinema_6">Rarely</label>
+			</div>
+		</fieldset>
+		
+		<fieldset id="fs_marketing_details">
+			<legend>Feedback</legend>
+			<div>
+				<label for="referrer">How did you hear about us?</label>
+				<select name="referrer" id="referrer">
+					<option>- - - - Select - - - -</option>
+					<option value="newspaper">Newspaper Story</option>
+					<option value="tv">TV Advertisement</option>
+					<option value="search">Web Search</option>
+					<option value="peer">From a friend</option>
+					<option value="conference">Conference</option>
+				</select>
+			</div>
+			<div class="inline">
+				<input type="checkbox" id="optin" name="optin" class="inline"><label for="optin">Would you like to be kept up-to-date via email about our special offers, promotions and competitions?</label>
+			</div>
+		</fieldset>
+		
+		<div class="form_nav">
+			<input type="submit" value="Sign Up!" />
+		</div>
+	</form>
+
+</body>
+</html>

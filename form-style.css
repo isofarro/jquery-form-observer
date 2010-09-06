@@ -1,0 +1,80 @@
+body {
+	font: 16px/17px Arial;
+	color: #444;
+}
+
+input, select, button {
+	font: 16px Arial;
+}
+
+form {
+	width: 450px;
+}
+
+fieldset {
+	padding: 0 0 5px 0;
+	margin: 5px;
+	border-color: #999;
+}
+
+fieldset p {
+	margin: 4px 5px;
+}
+
+legend {
+	background-color: #ccc;
+	padding: 4px;
+	margin: 0 5px;
+}
+
+label {
+	display: block;
+	width: 200px;
+	float: left;
+	clear: left;
+	text-align: right;
+	padding: 0 5px;
+	line-height: 28px;
+}
+
+.group label, 
+.inline label {
+	display: inline;
+	float: none;
+}
+
+.error {
+	width: 100%;
+	text-align: left;
+	color: #c00;
+	margin: 0 0 5px 0;
+}
+
+fieldset div {
+	padding: 5px;
+}
+
+fieldset.group div {
+	padding: 2px;
+}
+
+fieldset .highlight {
+	background: #FFEFD5;
+}
+
+label.inline,
+.group label {
+	display: inline;
+}
+
+label .required {
+	color: #c00;
+	font-weight: bold;
+}
+
+.form_nav {
+	background-color: #ddd;
+	padding: 4px;
+	text-align: center;
+	margin: 4px;
+}
