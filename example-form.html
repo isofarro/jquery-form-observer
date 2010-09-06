@@ -74,9 +74,71 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="jquery-form-observer.js"></script>
 <script type="text/javascript">
-	$('form.example').observeForm({
-		validation: 'label.error'
-	});
+(function($) {
+	formValidator = function(e) {
+		var form = $(this);
+		var valid = true;
+
+		clearValidationErrors(form);
+
+		var password = $('#password', form);
+		var confirm  = $('#confirm_password', form);
+		
+		if (!password.val()) {
+			showValidationError(password, 'Please enter a password');
+			valid = false;
+		}
+
+		if (!confirm.val()) {
+			showValidationError(confirm, 'Please confirm your password');
+			valid = false;
+		}
+		
+		if (valid && confirm.val() !== password.val()) {
+			showValidationError(confirm, 'Password confirm doesn\'t match your password');
+			valid = false;
+		}
+		
+		//if (!valid) {
+			e.preventDefault();
+		//}
+	}
+	
+	function clearValidationErrors(form) {
+		var errors = $('.error', form);
+		
+		errors.parent().removeClass('highlight');
+		errors.remove();
+	}
+	
+	function showValidationError(field, msg) {
+		var id = field.attr('id');
+		var parent = field.closest('fieldset:not(.group)>div');
+		
+		parent
+			.addClass('highlight')
+			.prepend(
+				$('<label>')
+					.attr('for', id)
+					.addClass('error')
+					.text(msg)
+			); 
+	}
+
+	$('form.example')
+		.observeForm({
+				validation: 'label.error'
+			})
+		.submit(formValidator)
+		.bind('form.validation', function(e, msg){
+				console.log('Event ' + msg.type + '[' + msg.name + '] ' + msg.error);
+			})
+		.bind('form.activity', function(e, msg){
+				console.log('Event' + msg.type + '[' + msg.name + ']: User Activity');
+			});
+})(jQuery);
+	
+	
 </script>
 
 </body>

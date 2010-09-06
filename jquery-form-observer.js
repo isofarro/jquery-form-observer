@@ -1,21 +1,27 @@
 (function($){
 	
-	var options = {};
+	var options  = {};
+	var activity = {};
 	
 	$.fn.observeForm = function(opts) {
-		options = $.extend({}, opts);
+		options  = $.extend({}, opts);
+		activity = {};
 		
 		console.log('Starting form observer');
 		
-		// Look for server-side validation messages when the DOM is ready
-		$(document).ready(serverValidationObserver);
-		var allFieldsSel = ':input:not(:hidden)';
+		//var allFieldsSel   = ':input:not(:hidden)';
+		var changeFieldSel = ':checkbox, :radio, select';
+		var keyFieldSel    = ':text, :password, textarea';
+		var btnFieldSel    = ':button, :reset, :submit, :image';
+		
+		
 		
 		return this
+			.ready(serverValidationObserver)
 			.submit(jsValidationObserver)
-			.delegate(allFieldsSel, 'focus',    fieldFocusHandler)
-			.delegate(allFieldsSel, 'keypress', fieldKeypressHandler)
-			.delegate(allFieldsSel, 'change',   fieldChangeHandler);
+			.delegate(changeFieldSel, 'change',   fieldActivityHandler)
+			.delegate(keyFieldSel,    'keypress', fieldActivityHandler)
+			.delegate(btnFieldSel,    'click',    fieldActivityHandler);
 
 	}
 
@@ -29,37 +35,50 @@
 				.filter(function() {
 						return this.nodeType == 3;
 					})
-				.text();
+				.text()
+				.trim();
 				
 			return {
 				name: $('#' + fieldId).attr('name'),
-				label: fieldLabel
+				label: fieldLabel,
+				error: label.text()
 			}
 		},
 		
 	}
 
 	serverValidationObserver = function(e) {
-		console.log('Observing server-side validation messages');
+		//console.log('Observing server-side validation messages');
 		if (options.validation) {
 			$(options.validation).each(function(){
 				var message = $.fn.observeForm.plugins.getMessageInfo($(this));
 				message.type = 'validation:server';
-				console.log(message);
+				$(this).trigger('form.validation', [message]);
 			});
 		}
 	}
 	
 	jsValidationObserver = function(e) {
-		console.log('Observing client-side validation messages');
+		//console.log('Observing client-side validation messages');
+		// Cheat! Delay for a while till the submit event has been done,
+		// then get severValidationObserver to do its work again!
+		setTimeout(serverValidationObserver, 500);
 	}
 	
-	userActivityObserver = function(e) {
-		console.log('Observing user form activity');
+	fieldActivityHandler = function(e) {
+		//console.log('Observing field activity');
+		var field = $(this);
+		var name  = field.attr('name');
+		
+		if (name && !activity[name]) {
+			var message = {
+				type: 'activity.field',
+				name: field.attr('name')
+			}
+			field.trigger('form.activity', [message]);
+			activity[name] = 1;
+		}
 	}
 	
-	fieldFocusHandler = function(e) {}
-	fieldKeypressHandler = function(e) {}
-	fieldChangeHandler = function(e) {}
 	
 })(jQuery);
