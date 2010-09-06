@@ -7,7 +7,7 @@
 		options  = $.extend({}, opts);
 		activity = {};
 		
-		console.log('Starting form observer');
+		//console.log('Starting form observer');
 		
 		//var allFieldsSel   = ':input:not(:hidden)';
 		var changeFieldSel = ':checkbox, :radio, select';
