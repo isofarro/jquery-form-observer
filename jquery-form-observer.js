@@ -14,8 +14,6 @@
 		var keyFieldSel    = ':text, :password, textarea';
 		var btnFieldSel    = ':button, :reset, :submit, :image';
 		
-		
-		
 		return this
 			.ready(serverValidationObserver)
 			.submit(jsValidationObserver)
@@ -52,7 +50,7 @@
 		if (options.validation) {
 			$(options.validation).each(function(){
 				var message = $.fn.observeForm.plugins.getMessageInfo($(this));
-				message.type = 'validation:server';
+				message.type = 'validation.server';
 				$(this).trigger('form.validation', [message]);
 			});
 		}
@@ -60,9 +58,17 @@
 	
 	jsValidationObserver = function(e) {
 		//console.log('Observing client-side validation messages');
-		// Cheat! Delay for a while till the submit event has been done,
-		// then get severValidationObserver to do its work again!
-		setTimeout(serverValidationObserver, 500);
+		var form = $(this);
+
+		setTimeout(function() {
+			if (options.validation) {
+				$(options.validation).each(function(){
+					var message = $.fn.observeForm.plugins.getMessageInfo($(this));
+					message.type = 'validation.javascript';
+					form.trigger('form.validation', [message]);
+				});
+			}
+		}, 500);
 	}
 	
 	fieldActivityHandler = function(e) {

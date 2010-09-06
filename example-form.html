@@ -71,10 +71,15 @@
 		</div>
 	</form>
 	
+	<ul id="logmsg"></ul>
+	
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="jquery-form-observer.js"></script>
 <script type="text/javascript">
 (function($) {
+	
+	/* Creating a stripped down validation routine */
+		
 	formValidator = function(e) {
 		var form = $(this);
 		var valid = true;
@@ -99,9 +104,9 @@
 			valid = false;
 		}
 		
-		//if (!valid) {
+		if (!valid) {
 			e.preventDefault();
-		//}
+		}
 	}
 	
 	function clearValidationErrors(form) {
@@ -124,17 +129,26 @@
 					.text(msg)
 			); 
 	}
+	
+	/* End of the validation routine */
+	
+	function logMsg(msg) {
+		$('#logmsg').append( $('<li/>').text(msg)	);
+	}
 
+
+	/* Binding the validation routine to the submit, 
+	   as well as invoking the form observer */
 	$('form.example')
 		.observeForm({
 				validation: 'label.error'
 			})
 		.submit(formValidator)
 		.bind('form.validation', function(e, msg){
-				console.log('Event ' + msg.type + '[' + msg.name + '] ' + msg.error);
+				logMsg('Event ' + msg.type + '[' + msg.name + '] ' + msg.error);
 			})
 		.bind('form.activity', function(e, msg){
-				console.log('Event' + msg.type + '[' + msg.name + ']: User Activity');
+				logMsg('Event ' + msg.type + '[' + msg.name + ']: User Activity');
 			});
 })(jQuery);
 	

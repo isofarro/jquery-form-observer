@@ -9,6 +9,7 @@ input, select, button {
 
 form {
 	width: 450px;
+	float: left;
 }
 
 fieldset {
@@ -77,4 +78,10 @@ label .required {
 	padding: 4px;
 	text-align: center;
 	margin: 4px;
+}
+
+#logmsg {
+	width: 500px;
+	float: left;
+	font-size: 13px;
 }
