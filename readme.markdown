@@ -55,6 +55,6 @@ The eventType is `form.activity`. The data structure for field activity messages
 Demonstration
 -------------
 
-Take a look at example.html for a working demonstation of the form observer.
+Take a look at [example.html](http://sandbox.thisvps.co.uk/demo/form-observer/example-form.html) for a working demonstation of the form observer.
 
 
