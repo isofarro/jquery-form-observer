@@ -27,14 +27,15 @@
 		getMessageInfo: function(label) {
 			var fieldId = label.attr('for');
 			
-			var fieldLabel = $('label[for=' + fieldId + ']')
-				.not('.error')
-				.contents()
-				.filter(function() {
-						return this.nodeType == 3;
-					})
-				.text()
-				.trim();
+			var fieldLabel = $.trim(
+				$('label[for=' + fieldId + ']')
+					.not('.error')
+					.contents()
+					.filter(function() {
+							return this.nodeType == 3;
+						})
+					.text()
+			);
 				
 			return {
 				name: $('#' + fieldId).attr('name'),
