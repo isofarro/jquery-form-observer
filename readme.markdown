@@ -8,6 +8,7 @@ Uses jQuery 1.4.2.
 Usage
 -----
 
+	// Initiate form observer on a form
 	$('form.signup')
 		.observeForm({
 			// The selector for validation messages 
@@ -15,6 +16,7 @@ Usage
 			validation: 'label.error'
 		});
 	
+	// Register for the form-observer events
 	$('form.signup')
 		.bind('form.validation', function(e, msg){
 			console.log(msg.type + '[' + msg.name + '] ' + msg.error);
